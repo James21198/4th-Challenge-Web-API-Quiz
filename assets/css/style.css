@@ -58,3 +58,20 @@ h1 {
 .hide {
     display: none;
 }
+
+.timer-div {
+    background-color: #fff;
+    width: 7.5em;
+    border-radius: 1.8em;
+    display: flex;
+    align-items: center;
+
+}
+
+.header {
+    margin-bottom: 1.8em;
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.6em;
+    border-bottom: 0.1em solid #3071a9;
+}

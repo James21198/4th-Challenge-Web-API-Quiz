@@ -28,7 +28,6 @@ const quizQuestions = [
 
 const quizContainer = document.getElementById('quiz');
 const resultContainer = document.getElementById('result');
-const submitButton = document.getElementById('submit');
 const playAgainButton = document.getElementById('playAgain');
 const showAnswerButton = document.getElementById('showAnswer');
 
@@ -64,8 +63,9 @@ function displayQuestion() {
         radio.type = 'radio';
         radio.name = 'quiz';
         radio.value = shuffledOptions[i];
+        radio.onclick = checkAnswer;
 
-        const optionText = document.createTextNode('input');
+        const optionText = document.createTextNode(shuffledOptions[i]);
 
         option.appendChild(radio);
         option.appendChild(optionText)
@@ -77,32 +77,29 @@ function displayQuestion() {
     quizContainer.appendChild(optionsElement);
 }
 
-function checkAnswer() {
-    const selectedOption = document.querySelector('input[name="quiz"]:checked');
-    if (selectedOption) {
-        const answer = selectedOption.value;
-        if (answer === quizQuestions[currentQuestion].answer) {
+function checkAnswer(event) {
+    const selectedOption = event.target.value
+    
+    if (selectedOption === quizQuestions[currentQuestion].answer) {
             score++;
-        } else {
-            incorrectAnswers.push({
-                question: quizQuestions[currentQuestion].question,
-                incorrectAnswer: answer,
-                correctAnswer: quizQuestions[currentQuestion].answer,
-            });
-        }
-        currentQuestion++
-        selectedOption.checked = false;
-        if (currentQuestion < quizQuestions.length) {
-            displayQuestion();
-        } else {
-            displayResult();
-        }
+    } else {
+        incorrectAnswers.push({
+            question: quizQuestions[currentQuestion].question,
+            incorrectAnswer: selectedOption,
+            correctAnswer: quizQuestions[currentQuestion].answer,
+        });
+    }
+    currentQuestion++
+    selectedOption.checked = false;
+    if (currentQuestion < quizQuestions.length) {
+        displayQuestion();
+    } else {
+        displayResult();
     }
 }
 
 function displayResult() {
     quizContainer.style.display = 'none';
-    submitButton.style.display = 'none';
     playAgainButton.style.display = 'inline-block';
     showAnswerButton.style.display = 'inline-block';
     resultContainer.innerHTML = `You scored ${score} out of ${quizQuestions.length}!`;
@@ -113,7 +110,6 @@ function playQuizAgain() {
     score = 0;
     incorrectAnswers = [];
     quizContainer.style.display = 'block';
-    submitButton.style.display = 'inline-block';
     playAgainButton.style.display = 'none';
     showAnswerButton.style.display = 'none';
     resultContainer.innerHTML = '';
@@ -122,7 +118,6 @@ function playQuizAgain() {
 
 function showAnswer() {
     quizContainer.style.display = 'none';
-    submitButton.style.display = 'none';
     playAgainButton.style.display = 'inline-block';
     showAnswerButton.style.display = 'none';
 
@@ -142,7 +137,6 @@ function showAnswer() {
     <p>Incorrect Answers:</p> ${incorrectAnswersHtml}`;
 }
 
-submitButton.addEventListener('click', checkAnswer);
 playAgainButton.addEventListener('click', playQuizAgain);
 showAnswerButton.addEventListener('click', showAnswer);
 
