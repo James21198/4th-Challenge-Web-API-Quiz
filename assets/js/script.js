@@ -105,7 +105,7 @@ function displayResult() {
     submitButton.style.display = 'none';
     playAgainButton.style.display = 'inline-block';
     showAnswerButton.style.display = 'inline-block';
-    resultContainer.innerHTML = "You scored ${score} out of ${quizQuestions.length}!";
+    resultContainer.innerHTML = `You scored ${score} out of ${quizQuestions.length}!`;
 }
 
 function playQuizAgain() {
