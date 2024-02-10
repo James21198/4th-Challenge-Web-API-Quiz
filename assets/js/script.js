@@ -32,12 +32,12 @@ const submitButton = document.getElementById('submit');
 const playAgainButton = document.getElementById('playAgain');
 const showAnswerButton = document.getElementById('showAnswer');
 
-let currentQuestion = 0;
-let score = 0;
-let incorrectAnswers = [];
+var currentQuestion = 0;
+var score = 0;
+var incorrectAnswers = [];
 
 function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
+    for (var i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
@@ -56,7 +56,7 @@ function displayQuestion() {
     const shuffledOptions = [...questionData.options];
     shuffleArray(shuffledOptions);
 
-    for (let i = 0; i < shuffledOptions.length; i++) {
+    for (var i = 0; i < shuffledOptions.length; i++) {
         const option = document.createElement('label');
         option.className = 'option';
 
@@ -105,7 +105,7 @@ function displayResult() {
     submitButton.style.display = 'none';
     playAgainButton.style.display = 'inline-block';
     showAnswerButton.style.display = 'inline-block';
-    resultContainer.innerHTML = 'You scored ${score} out of ${quizQuestion}!';
+    resultContainer.innerHTML = "You scored ${score} out of ${quizQuestions.length}!";
 }
 
 function playQuizAgain() {
@@ -127,7 +127,7 @@ function showAnswer() {
     showAnswerButton.style.display = 'none';
 
     var incorrectAnswersHtml = '';
-    for (let i = 0; i < incorrectAnswers.length; i++) {
+    for (var i = 0; i < incorrectAnswers.length; i++) {
         incorrectAnswersHtml += `
          <p>
             <Strong>Question:</Strong> ${incorrectAnswers [i].question}<br>
@@ -139,8 +139,7 @@ function showAnswer() {
 
     resultContainer.innerHTML = `
     <p>You scored ${score} out of ${quizQuestions.length}!</p>
-    <p>Incorrect Answers:</p> ${incorrectAnswersHtml}
-   `;
+    <p>Incorrect Answers:</p> ${incorrectAnswersHtml}`;
 }
 
 submitButton.addEventListener('click', checkAnswer);
