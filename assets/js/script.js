@@ -32,6 +32,7 @@ const playAgainButton = document.getElementById('playAgain');
 const showAnswerButton = document.getElementById('showAnswer');
 const highScoresButton = document.getElementById('highScores');
 const startQuizButton = document.getElementById('startQuiz')
+const saveScoreButton = document.getElementById('saveScore')
 
 var currentQuestion = 0;
 var score = 0;
@@ -105,8 +106,11 @@ function checkAnswer(event) {
             correctAnswer: quizQuestions[currentQuestion].answer,
         });
     }
+    
     currentQuestion++
     selectedOption.checked = false;
+
+    console.log(currentQuestion, quizQuestions.length);
     if (currentQuestion < quizQuestions.length) {
         displayQuestion();
     } else {
@@ -117,6 +121,7 @@ function checkAnswer(event) {
 function displayResult() {
     clearInterval(timerId);
     timeLeft = 0;
+    
     quizContainer.style.display = 'none';
     playAgainButton.style.display = 'inline-block';
     showAnswerButton.style.display = 'inline-block';
@@ -125,15 +130,20 @@ function displayResult() {
 }
 
 function playQuiz() {
-    timerId = setInterval(countdown, 800);
     currentQuestion = 0;
     score = 0;
     timeLeft = 30;
+    
+    timerId = setInterval(countdown, 800);
+
     incorrectAnswers = [];
+
     quizContainer.style.display = 'block';
     playAgainButton.style.display = 'none';
     showAnswerButton.style.display = 'none';
+    startButton.style.display = 'none';
     resultContainer.innerHTML = '';
+
     displayQuestion();
 }
 
@@ -161,10 +171,30 @@ function showAnswer() {
 function highScores() {
     quizContainer.style.display = 'none';
     highScoresButton.style.display = 'inline-block'
+
+    for (var i = 0; i < localStorage.length; i++){
+        var initial = localStorage.key(i);
+        var score = localStorage.getItem(initial);
+        
+        // create an element for each individual score
+
+        // append the element to the highScoresContainer
+    }
 }
 
-playAgainButton.addEventListener('click', playQuizAgain);
+function saveScore() {
+    var initials = document.getElementById('initials').value;
+
+    if (!initials) {
+        alert('Please enter your initials');
+        return;
+    }
+    
+    localStorage.setItem(initials, score);
+}
+
+playAgainButton.addEventListener('click', playQuiz);
 showAnswerButton.addEventListener('click', showAnswer);
 highScoresButton.addEventListener('click', highScores)
-
-displayQuestion();
+startButton.addEventListener('click', playQuiz);
+saveScoreButton.addEventListener('click', saveScore)

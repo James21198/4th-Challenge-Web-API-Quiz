@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Quiz</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div id="timer-div">
+                <img src="/assets/images/timer-image.jpg" alt="timer-icon" width="20px">
+                <span class="time-left"></span>
+            </div>
+            <h1>Welcome to my Coding quiz</h1>
+        </div>
+        <div id="quiz"></div>
+        <div id="result" class="result">
+
+            <h2>Enter your initials to save your score</h2>
+            <input type="text" id="initials" placeholder="Enter your initials">
+            <button id="saveScore" class="button">Save Score</button>
+            <button id="highScores" class="button">Show High Scores</button>
+        </div>
+        <button id="startButton" class="button">Start Quiz</button>
+        <button id="playAgain" class="button hide">Play Again</button>
+        <button id="showAnswer" class="button hide">Show Answer</button>
+    </div>
+    <script src="/assets/js/script.js"></script>
+</body>
+
+</html>
