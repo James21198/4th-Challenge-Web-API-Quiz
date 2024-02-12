@@ -28,6 +28,7 @@ const quizQuestions = [
 
 const quizContainer = document.getElementById('quiz');
 const resultContainer = document.getElementById('result');
+const resultText = document.getElementById('result-text');
 const playAgainButton = document.getElementById('playAgain');
 const showAnswerButton = document.getElementById('showAnswer');
 const highScoresButton = document.getElementById('highScores');
@@ -129,7 +130,7 @@ function displayResult() {
     showAnswerButton.style.display = 'inline-block';
     highScoresButton.style.display = 'none';
     resultContainer.style.display = 'inline-block'
-    //resultContainer.innerHTML = `You scored ${score} out of ${quizQuestions.length}!`;
+    resultText.innerHTML = `You scored ${score} out of ${quizQuestions.length}!`;
 }
 
 function playQuiz() {
@@ -146,7 +147,7 @@ function playQuiz() {
     playAgainButton.style.display = 'none';
     showAnswerButton.style.display = 'none';
     startButton.style.display = 'none';
-    resultContainer.innerHTML = '';
+    resultText.innerHTML = '';
 
     displayQuestion();
 }
@@ -181,7 +182,7 @@ function highScores() {
         var score = localStorage.getItem(initial);
         
         var scoreItem=document.createElement('div');
-        scoreItem.textContent = initial + " " + score;      
+        scoreItem.textContent = initial + ": " + score;      
         userScoreEl.appendChild(score);
     }
 }
