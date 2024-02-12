@@ -30,10 +30,26 @@ const quizContainer = document.getElementById('quiz');
 const resultContainer = document.getElementById('result');
 const playAgainButton = document.getElementById('playAgain');
 const showAnswerButton = document.getElementById('showAnswer');
+const highScoresButton = document.getElementById('highScores');
+const startQuizButton = document.getElementById('startQuiz')
 
 var currentQuestion = 0;
 var score = 0;
 var incorrectAnswers = [];
+
+var timeLeft = 30;
+var timerEl = document.getElementById('timer-div');
+var timerId = setInterval(countdown, 800);
+
+function countdown() {
+    if (timeLeft === -1) {
+        clearInterval(timerId);
+        return;
+    } else {
+        timerEl.innerHTML = timeLeft;
+        timeLeft--;
+    }
+}
 
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -99,13 +115,16 @@ function checkAnswer(event) {
 }
 
 function displayResult() {
+    clearInterval(timerId);
     quizContainer.style.display = 'none';
     playAgainButton.style.display = 'inline-block';
     showAnswerButton.style.display = 'inline-block';
+    highScoresButton.style.display = 'inline-block';
     resultContainer.innerHTML = `You scored ${score} out of ${quizQuestions.length}!`;
 }
 
 function playQuizAgain() {
+    setInterval(countdown, 800);
     currentQuestion = 0;
     score = 0;
     incorrectAnswers = [];
@@ -137,7 +156,13 @@ function showAnswer() {
     <p>Incorrect Answers:</p> ${incorrectAnswersHtml}`;
 }
 
+function highScores() {
+    quizContainer.style.display = 'none';
+    highScoresButton.style.display = 'inline-block'
+}
+
 playAgainButton.addEventListener('click', playQuizAgain);
 showAnswerButton.addEventListener('click', showAnswer);
+highScoresButton.addEventListener('click', highScores)
 
 displayQuestion();
