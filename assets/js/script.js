@@ -31,7 +31,6 @@ const resultContainer = document.getElementById('result');
 const resultText = document.getElementById('result-text');
 const playAgainButton = document.getElementById('playAgain');
 const showAnswerButton = document.getElementById('showAnswer');
-const highScoresButton = document.getElementById('highScores');
 const startQuizButton = document.getElementById('startQuiz')
 const saveScoreButton = document.getElementById('saveScore')
 
@@ -128,7 +127,6 @@ function displayResult() {
     quizContainer.style.display = 'none';
     playAgainButton.style.display = 'inline-block';
     showAnswerButton.style.display = 'inline-block';
-    highScoresButton.style.display = 'none';
     resultContainer.style.display = 'inline-block'
     resultText.innerHTML = `You scored ${score} out of ${quizQuestions.length}!`;
 }
@@ -146,9 +144,9 @@ function playQuiz() {
     saveScoreButton.style.display = 'none';
     playAgainButton.style.display = 'none';
     showAnswerButton.style.display = 'none';
+    resultText.style.display = 'none';
     startButton.style.display = 'none';
     resultText.innerHTML = '';
-
     displayQuestion();
 }
 
@@ -175,7 +173,6 @@ function showAnswer() {
 
 function highScores() {
     quizContainer.style.display = 'none';
-    highScoresButton.style.display = 'inline-block'
 
     for (var i = 0; i < localStorage.length; i++){
         var initial = localStorage.key(i);
@@ -200,6 +197,5 @@ function saveScore() {
 
 playAgainButton.addEventListener('click', playQuiz);
 showAnswerButton.addEventListener('click', showAnswer);
-highScoresButton.addEventListener('click', highScores);
 startButton.addEventListener('click', playQuiz);
 saveScoreButton.addEventListener('click', saveScore);
