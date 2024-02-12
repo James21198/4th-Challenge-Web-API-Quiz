@@ -43,8 +43,8 @@ var timerEl = document.getElementById('timer-div');
 var timerId
 
 function countdown() {
-    if (timeLeft === -1) {
-        clearInterval(timerId);
+    if (timeLeft <= 0) {
+        displayResult();
         return;
     } else {
         timerEl.innerHTML = timeLeft;
@@ -100,6 +100,7 @@ function checkAnswer(event) {
     if (selectedOption === quizQuestions[currentQuestion].answer) {
             score++;
     } else {
+        timeLeft -=5;
         incorrectAnswers.push({
             question: quizQuestions[currentQuestion].question,
             incorrectAnswer: selectedOption,
@@ -122,11 +123,13 @@ function displayResult() {
     clearInterval(timerId);
     timeLeft = 0;
     
+    saveScoreButton.style.display = 'inline-block';
     quizContainer.style.display = 'none';
     playAgainButton.style.display = 'inline-block';
     showAnswerButton.style.display = 'inline-block';
-    highScoresButton.style.display = 'inline-block';
-    resultContainer.innerHTML = `You scored ${score} out of ${quizQuestions.length}!`;
+    highScoresButton.style.display = 'none';
+    resultContainer.style.display = 'inline-block'
+    //resultContainer.innerHTML = `You scored ${score} out of ${quizQuestions.length}!`;
 }
 
 function playQuiz() {
@@ -134,11 +137,12 @@ function playQuiz() {
     score = 0;
     timeLeft = 30;
     
-    timerId = setInterval(countdown, 800);
+    timerId = setInterval(countdown, 600);
 
     incorrectAnswers = [];
 
     quizContainer.style.display = 'block';
+    saveScoreButton.style.display = 'none';
     playAgainButton.style.display = 'none';
     showAnswerButton.style.display = 'none';
     startButton.style.display = 'none';
@@ -176,9 +180,9 @@ function highScores() {
         var initial = localStorage.key(i);
         var score = localStorage.getItem(initial);
         
-        // create an element for each individual score
-
-        // append the element to the highScoresContainer
+        var scoreItem=document.createElement('div');
+        scoreItem.textContent = initial + " " + score;      
+        userScoreEl.appendChild(score);
     }
 }
 
@@ -195,6 +199,6 @@ function saveScore() {
 
 playAgainButton.addEventListener('click', playQuiz);
 showAnswerButton.addEventListener('click', showAnswer);
-highScoresButton.addEventListener('click', highScores)
+highScoresButton.addEventListener('click', highScores);
 startButton.addEventListener('click', playQuiz);
-saveScoreButton.addEventListener('click', saveScore)
+saveScoreButton.addEventListener('click', saveScore);
