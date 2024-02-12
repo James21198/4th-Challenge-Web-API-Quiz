@@ -39,7 +39,7 @@ var incorrectAnswers = [];
 
 var timeLeft = 30;
 var timerEl = document.getElementById('timer-div');
-var timerId = setInterval(countdown, 800);
+var timerId
 
 function countdown() {
     if (timeLeft === -1) {
@@ -116,6 +116,7 @@ function checkAnswer(event) {
 
 function displayResult() {
     clearInterval(timerId);
+    timeLeft = 0;
     quizContainer.style.display = 'none';
     playAgainButton.style.display = 'inline-block';
     showAnswerButton.style.display = 'inline-block';
@@ -123,10 +124,11 @@ function displayResult() {
     resultContainer.innerHTML = `You scored ${score} out of ${quizQuestions.length}!`;
 }
 
-function playQuizAgain() {
-    setInterval(countdown, 800);
+function playQuiz() {
+    timerId = setInterval(countdown, 800);
     currentQuestion = 0;
     score = 0;
+    timeLeft = 30;
     incorrectAnswers = [];
     quizContainer.style.display = 'block';
     playAgainButton.style.display = 'none';
