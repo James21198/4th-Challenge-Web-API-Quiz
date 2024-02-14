@@ -153,6 +153,8 @@ function playQuiz() {
 function showAnswer() {
     quizContainer.style.display = 'none';
     playAgainButton.style.display = 'inline-block';
+    resultContainer.style.display = 'inline-block';
+    resultText.style.display = 'inline-block';
     showAnswerButton.style.display = 'none';
 
     var incorrectAnswersHtml = '';
@@ -166,7 +168,7 @@ function showAnswer() {
       `;    
     }
 
-    resultContainer.innerHTML = `
+    resultText.innerHTML = `
     <p>You scored ${score} out of ${quizQuestions.length}!</p>
     <p>Incorrect Answers:</p> ${incorrectAnswersHtml}`;
 }
