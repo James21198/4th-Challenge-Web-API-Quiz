@@ -145,6 +145,7 @@ function playQuiz() {
     playAgainButton.style.display = 'none';
     showAnswerButton.style.display = 'none';
     startButton.style.display = 'none';
+    resultContainer.style.display = 'none';
     resultText.innerHTML = '';
     displayQuestion();
 }
