@@ -173,19 +173,6 @@ function showAnswer() {
     <p>Incorrect Answers:</p> ${incorrectAnswersHtml}`;
 }
 
-function highScores() {
-    quizContainer.style.display = 'none';
-
-    for (var i = 0; i < localStorage.length; i++){
-        var initial = localStorage.key(i);
-        var score = localStorage.getItem(initial);
-        
-        var scoreItem=document.createElement('div');
-        scoreItem.textContent = initial + ": " + score;      
-        userScoreEl.appendChild(score);
-    }
-}
-
 function saveScore() {
     var initials = document.getElementById('initials').value;
 
